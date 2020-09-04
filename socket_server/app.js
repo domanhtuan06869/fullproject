@@ -3,12 +3,15 @@ const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
-const socketio = require("socket.io");
 
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 
 const app = express();
+
+const socketio = require("socket.io");
+const connection = require('../socket_server/database/connect');
+const query = require('../socket_server/database/query');
 
 // Create the http server 
 const server = require('http').createServer(app);
@@ -17,6 +20,19 @@ const server = require('http').createServer(app);
 // the top of http server 
 const io = socketio(server);
 
+app.use(async function (req, res, next) {
+  const conn = await connection();
+
+  req.querysql = async function (sql) {
+    return await query(conn, sql);
+  }
+  next();
+});
+
+app.use(function (req, res, next) {
+  req.io = io;
+  next();
+})
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 
@@ -25,10 +41,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(function(req,res,next){
-  req.io = io;
-  next();
-  })
+
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 

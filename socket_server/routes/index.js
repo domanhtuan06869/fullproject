@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+
 /* GET home page. */
 router.get('/', function (req, res, next) {
   req.io.on('connection', (socket) => {
@@ -16,6 +17,11 @@ router.get('/', function (req, res, next) {
   res.sendFile('index.html', {
     root: "views"
   })
+});
+
+router.get('/users', async function(req,res){
+   let result= await req.querysql('select * from category');
+  res.send(result)
 });
 
 module.exports = router;
