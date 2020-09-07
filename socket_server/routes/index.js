@@ -20,7 +20,7 @@ router.get('/', function (req, res, next) {
 });
 
 router.get('/users', async function(req,res){
-   let result= await req.querysql('select * from category');
+   let result= await req.querySql('select * from category');
   res.send(result)
 });
 

@@ -23,7 +23,7 @@ const io = socketio(server);
 app.use(async function (req, res, next) {
   const conn = await connection();
 
-  req.querysql = async function (sql) {
+  req.querySql = async function (sql) {
     return await query(conn, sql);
   }
   next();
@@ -43,7 +43,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use('/api/users', usersRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
