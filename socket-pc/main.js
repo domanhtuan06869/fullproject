@@ -1,16 +1,17 @@
 // Modules to control application life and create native browser window
-const  { app } = require('electron')
+const { app } = require('electron')
 const path = require('path')
-const commom = require('./libs/commom')
-async function createWindow() {
-  await commom.openWindow(`file://${__dirname}/ui/login_window/index.html`)
+const dialogApp = require('./ui/libs/dialog-utils')
+const commom = require('./ui/libs/commom')
+async function openDialogWindow() {
+  return await dialogApp.showLoginDialog(null)
 }
 
-app.whenReady().then(async() => {
- await createWindow()
+app.whenReady().then(async () => {
+     await openDialogWindow()
 
   app.on('activate', function () {
-    if (BrowserWindow.getAllWindows().length === 0) createWindow()
+    if (BrowserWindow.getAllWindows().length === 0) openDialogWindow()
   })
 })
 

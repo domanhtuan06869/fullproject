@@ -18,5 +18,11 @@
   "license": "CC0-1.0",
   "devDependencies": {
     "electron": "^10.1.1"
+  },
+  "dependencies": {
+    "jquery": "^3.5.1",
+    "bootstrap": "4.5.2",
+    "popper.js": "^1.16.1"
+
   }
 }
