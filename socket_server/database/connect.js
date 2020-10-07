@@ -14,7 +14,7 @@ module.exports = async () => new Promise(
         connection.connect(error => {
             if (error) {
                 reject(error);
-                
+                console.log(error);
                 return;
             }
             console.log('connected mysql')

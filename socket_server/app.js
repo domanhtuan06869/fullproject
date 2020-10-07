@@ -19,10 +19,8 @@ const server = require('http').createServer(app);
 // Create the Socket IO server on  
 // the top of http server 
 const io = socketio(server);
-
 app.use(async function (req, res, next) {
   const conn = await connection();
-
   req.querySql = async function (sql) {
     return await query(conn, sql);
   }
