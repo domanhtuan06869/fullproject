@@ -7,37 +7,47 @@ const QUERY_SQL = require('../libs/query');
 router.post('/register', async (req, res, next) => {
   let { email, password } = req.body;
   let passwordEndcode = await userSecurity._encoded(password);
-  let query = QUERY_SQL.queryRegistry(email, passwordEndcode);
+  let queryRegistry = QUERY_SQL.queryRegister(email, passwordEndcode);
   try {
-    let result = await req.querySql(query);
+    let queryCheck = QUERY_SQL.queryLogin(email);
+    let checkUser = await req.querySql(queryCheck);
+    if (checkUser[0]) {
+      res.send({ code: 400, message: 'email already exits' });
+      return;
+    }
+    let result = await req.querySql(queryRegistry);
     if (result) {
-      res.send(result)
+      res.send({ code: 200, data: result, message: 'success' });
     } else {
-      res.send({ status: 401 });
+      res.send({ status: 401, message: 'register fail' });
     }
   } catch (e) {
-    res.send({ status: 403 });
+    console.log(e);
+    res.send({ status: 402, message: 'register fall' });
   }
 });
 
 router.post('/login', async (req, res, next) => {
   let { email, password } = req.body;
-  let emailEndcode = await userSecurity._encoded(email);
   let passwordEndcode = await userSecurity._encoded(password);
-  let query = `SELECT email,password FROM users where email='${emailEndcode}'`;
+  let query = QUERY_SQL.queryLogin(email);
   try {
     let result = await req.querySql(query);
-    if (result[0].password === passwordEndcode) {
-      res.send(result)
+    if (result[0].email === email) {
+      if (result[0].password === passwordEndcode) {
+        res.send({ code: 200, data: result, message: 'success' });
+      } else {
+        res.send({ status: 401, message: 'password fail' });
+      }
     } else {
-      res.send({ status: 401 });
+      res.send({ status: 402, message: 'email does not exits' });
     }
   } catch (e) {
-    res.send({ status: 403 });
+    res.send({ status: 403, message: 'login fail' });
   }
 });
 
-router.get('/aaa',async(req,res)=>{
+router.get('/aaa', async (req, res) => {
   let result = await req.querySql("select * from Product");
   res.send(result)
 });
