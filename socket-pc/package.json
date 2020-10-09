@@ -1,12 +1,19 @@
 {
-  "name": "electron-quick-start",
+  "name": "waiting-examination",
   "version": "1.0.0",
-  "description": "A minimal Electron application",
+  "description": "waiting-examination",
   "main": "main.js",
   "scripts": {
-    "start": "electron ."
+    "start": "electron .",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder"
   },
-  "repository": "https://github.com/electron/electron-quick-start",
+  "build": {
+    "appId": "waitting.examination",
+    "mac": {
+      "category": "your.app.category.type"
+    }
+  },
   "keywords": [
     "Electron",
     "quick",
@@ -14,15 +21,18 @@
     "tutorial",
     "demo"
   ],
-  "author": "GitHub",
+  "author": "tuan.domanh",
   "license": "CC0-1.0",
   "devDependencies": {
-    "electron": "^10.1.1"
+    "electron": "^10.1.1",
+    "electron-builder": "^22.8.1"
   },
   "dependencies": {
-    "jquery": "^3.5.1",
+    "axios": "0.20.0",
     "bootstrap": "4.5.2",
-    "popper.js": "^1.16.1"
-
-  }
+    "jquery": "^3.5.1",
+    "popper.js": "^1.16.1",
+    "electron-dialogbox":"0.3.4"
+  },
+  "postinstall": "electron-builder install-app-deps"
 }

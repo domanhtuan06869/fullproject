@@ -28,14 +28,14 @@ router.post('/register', async (req, res, next) => {
 });
 
 router.post('/login', async (req, res, next) => {
-  let { email, password } = req.body;
-  let passwordEndcode = await userSecurity._encoded(password);
-  let query = QUERY_SQL.queryLogin(email);
+  const { email, password } = req.body;
+  const passwordEndcode = await userSecurity._encoded(password);
+  const query = QUERY_SQL.queryLogin(email);
   try {
     let result = await req.querySql(query);
     if (result[0].email === email) {
       if (result[0].password === passwordEndcode) {
-        res.send({ code: 200, data: result, message: 'success' });
+        res.send({ code: 200, data: result[0], message: 'success' });
       } else {
         res.send({ status: 401, message: 'password fail' });
       }
@@ -47,9 +47,8 @@ router.post('/login', async (req, res, next) => {
   }
 });
 
-router.get('/aaa', async (req, res) => {
-  let result = await req.querySql("select * from Product");
-  res.send(result)
-});
+router.post('/aaa', function(req,res){
+  res.send({aa:"hhh", code:200})
+})
 
 module.exports = router;

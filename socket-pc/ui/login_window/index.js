@@ -1,11 +1,9 @@
 const { remote } = require('electron')
 remote.getCurrentWindow().openDevTools()
-const commom = remote.require('./ui/libs/commom')
-
+const usersAction = remote.require('./ui/libs/users-action')
 
 $(document).ready(function () {
     $('#ok').on('click',async ()=>{
-        await commom.openWindow(`file:///ui/login_window/index.html`);
-        window.dialog.exit(true)
+        let data =await usersAction.login(null,'hgh','hhh');
     })
 })

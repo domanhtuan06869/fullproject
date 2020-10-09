@@ -1,10 +1,9 @@
 // Modules to control application life and create native browser window
 const { app } = require('electron')
 const path = require('path')
-const dialogApp = require('./ui/libs/dialog-utils')
-const commom = require('./ui/libs/commom')
+const dialogUtils = require('./ui/libs/dialog-utils')
 async function openDialogWindow() {
-  return await dialogApp.showLoginDialog(null)
+  return await dialogUtils.showLoginDialog(null);
 }
 
 app.whenReady().then(async () => {
