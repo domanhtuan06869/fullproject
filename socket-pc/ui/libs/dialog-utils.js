@@ -12,13 +12,13 @@ async function showDialog(url, options, input) {
     return dialog;
 }
 module.exports = {
-    showLoginDialog: async function (parent) {
-        return await showDialog(path.join(__dirname, '../login_window/index.html'),
-            { width: 800, height: 600, parent: parent, modal: true, minimizable: false, resizable: false });
+    showLoginDialog: function (parent) {
+        return showDialog(path.join(__dirname, '../login_window/index.html'),
+            { width: 800, height: 600, parent: parent, modal: true, resizable: false });
     },
 
     /*dialog electron*/
-    showDialog: (parent, option) => {
-        dialog.showMessageBoxSync(parent, option);
+    showDialogBox: (parent, option) => {
+        return dialog.showMessageBoxSync(parent, option);
     }
 }

@@ -13,7 +13,7 @@ const openWindow = async (pathUrl, options = {}) => {
 }
 module.exports = {
     windowHome: () => {
-        return openWindow('../login_window/index.html',{  width: 800, height: 600, minimizable: false, resizable: false })
+        return openWindow('../login_window/index.html',{  width: 800, height: 600, minimizable: false, resizable: false });
     }
 
 }
