@@ -7,13 +7,13 @@ const openWindow = async (pathUrl, options = {}) => {
         enableRemoteModule: true
     }
     const mainWindow = new BrowserWindow(options)
+    mainWindow.removeMenu();
     mainWindow.loadURL(path.join(__dirname, pathUrl));
-    mainWindow.webContents.openDevTools();
     return mainWindow;
 }
 module.exports = {
     windowHome: () => {
-        return openWindow('../login_window/index.html',{  width: 800, height: 600, minimizable: false, resizable: false });
+        return openWindow('../home_window/index.html',{  width: 1000, height: 700, resizable: false });
     }
 
 }

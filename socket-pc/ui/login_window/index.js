@@ -7,7 +7,7 @@ $(document).ready(function () {
     $('#ok').on('click', async () => {
         const email = $('#email').val().trim();
         const password = $('#email').val().trim();
-        if (!isValidate(email, password)) return;
+      //  if (!isValidate(email, password)) return;
         let isLogin = await usersAction.login(remote.getCurrentWindow(), email, password);
         if (isLogin) {
             window.dialog.exit();

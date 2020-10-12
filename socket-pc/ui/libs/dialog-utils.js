@@ -14,7 +14,7 @@ async function showDialog(url, options, input) {
 module.exports = {
     showLoginDialog: function (parent) {
         return showDialog(path.join(__dirname, '../login_window/index.html'),
-            { width: 800, height: 600, parent: parent, modal: true, resizable: false });
+            { width: 800, height: 600, parent: parent, modal: true, resizable: false, minimizable: false, });
     },
 
     /*dialog electron*/
